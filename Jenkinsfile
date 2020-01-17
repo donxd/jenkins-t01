@@ -17,11 +17,13 @@ pipeline {
         stage('build') {
             steps {
                 echo 'built'
+                sh 'echo $USER'
             }
         }
         stage('test') {
             agent { docker 'node:13.6-stretch' }
             steps {
+                sh 'echo $USER'
                 sh 'node -v'
                 sh 'npm i'
                 sh './test.sh'
@@ -29,6 +31,7 @@ pipeline {
         }
         stage('deploy') {
             steps {
+                sh 'echo $USER'
                 sh './deploy.sh'
             }
         }
