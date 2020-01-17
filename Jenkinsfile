@@ -1,9 +1,6 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:13.6-stretch'
-        }
-    }
+    agent none
+
     environment {
         CI = 'true'
     }
@@ -13,17 +10,20 @@ pipeline {
             steps {
                 echo 'hi'
                 script {
-                    sh 'node -v'
+                    sh 'echo $USER'
                 }
             }
         }
         stage('build') {
             steps {
-                sh 'npm i'
+                echo 'built'
             }
         }
         stage('test') {
+            agent { docker 'node:13.6-stretch' }
             steps {
+                sh 'node -v'
+                sh 'npm i'
                 sh './test.sh'
             }
         }
