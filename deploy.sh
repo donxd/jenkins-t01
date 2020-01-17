@@ -1,0 +1,1 @@
+docker cp ./* node-ex:/src
